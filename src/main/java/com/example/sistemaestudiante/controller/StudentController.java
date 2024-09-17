@@ -10,6 +10,27 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@RestController
+@RequestMapping("/api/students")
 public class StudentController {
+
+    @Autowired
+    private StudentService studentService;
+
+    //Obtener la lista de todos los estudiantes registrados
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
+    }
+
+    //Obtener un estudiante por su id
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable int id) {
+        Student student = studentService.getStudentById(id);
+        if (student!=null){
+            return ResponseEntity.ok(student);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }
