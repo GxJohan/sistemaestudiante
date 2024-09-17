@@ -33,4 +33,21 @@ public class StudentController {
         return ResponseEntity.notFound().build();
     }
 
+    //Registrar un estudiante
+    @PostMapping
+    public Student addStudent(@RequestBody Student student) {
+        return studentService.addStudent(student);
+    }
+
+    //Actualizar un estudiante por su id
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable int id, @RequestBody Student student) {
+      Student updatedStudent = studentService.updateStudent(id, student);
+      if (updatedStudent!=null){
+          return ResponseEntity.ok(updatedStudent);
+      }
+      return ResponseEntity.notFound().build();
+    }
+
+
 }
